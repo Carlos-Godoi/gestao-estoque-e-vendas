@@ -1,8 +1,10 @@
 // dotenv para carregar as variáveis de ambiente do .env
 import * as dotenv from 'dotenv';
 dotenv.config();
+
 import express, { Request, Response } from 'express';
 import connectDB from './config/db';
+import authRoutes from './routes/auth.routes';
 
 // Conecta ao MongoDB
 connectDB();
@@ -18,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req: Request, res: Response) => {
     res.send('API StockFlow: Servidor Rodando!');
 });
+
+// Uso das Rotas de autenticação
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
